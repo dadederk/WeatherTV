@@ -11,7 +11,7 @@ import Foundation
 struct Weather {
     
     let city: String
-    let temperature: Float
+    var temperature: Float
     var formatedTemperature: String {
     
         get {
