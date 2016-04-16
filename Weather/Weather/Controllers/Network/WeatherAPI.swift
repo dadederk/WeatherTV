@@ -14,17 +14,16 @@ enum Method: String {
 }
 
 struct WeatherAPI {
-    
-    static func request(method: Method, url: String, response:(result: AnyObject?, error: NSError?) -> ()) {
-    
+    static func request(method: Method,
+                        url: String,
+                        response:(result: AnyObject?,
+        error: NSError?) -> ()) {
         Alamofire.request(.GET, url)
             .responseJSON { alamoResponse in
-                
                 print(alamoResponse.request)  // original URL request
                 print(alamoResponse.response) // URL response
                 print(alamoResponse.data)     // server data
                 print(alamoResponse.result)   // result of response serialization
-                
                 response(result:alamoResponse.result.value, error:alamoResponse.result.error)
         }
     }

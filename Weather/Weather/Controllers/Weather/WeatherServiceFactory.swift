@@ -9,19 +9,14 @@
 import Foundation
 
 enum WeatherService {
-    
     case OpenWeather, WorldWeather
 }
 
 struct WeatherServiceFactory {
-    
-    static func weatherService(weatherService:WeatherService = .OpenWeather) -> (WeatherServiceProtocol) {
-        
+    static func weatherService(weatherService: WeatherService = .OpenWeather) -> (WeatherServiceProtocol) {
         switch weatherService {
-            
         case .OpenWeather:
             return OpenWeatherService()
-        
         case .WorldWeather:
             return WorldWeatherService()
         }

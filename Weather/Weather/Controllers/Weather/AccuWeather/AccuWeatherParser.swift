@@ -8,10 +8,9 @@
 
 import Foundation
 
-struct AccuWeatherParser : WeatherParserProtocol {
+struct AccuWeatherParser: WeatherParserProtocol {
 
     static func parseWeather(json: AnyObject) -> Weather? {
-        
         return Weather(city: "", temperature: 0)
     }
 }

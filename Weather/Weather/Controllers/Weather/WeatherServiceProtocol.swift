@@ -9,6 +9,7 @@
 import Foundation
 
 protocol WeatherServiceProtocol {
-    
-    func weatherForCititWithName(name: String, country: String, completionHandler: (weather:Weather?) -> ())
+    func weatherForCititWithName(name: String,
+                                 country: String,
+                                 completionHandler: (weather: Weather?) -> ())
 }

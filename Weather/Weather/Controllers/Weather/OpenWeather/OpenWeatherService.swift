@@ -8,13 +8,11 @@
 
 import Foundation
 
-struct OpenWeatherService : WeatherServiceProtocol {
+struct OpenWeatherService: WeatherServiceProtocol {
 
     private let baseUrl = "http://api.openweathermap.org/data"
     private let version = "2.5"
-    
     private let weatherMethod = "weather"
-    
     private let apiKeyParameterName = "APPID"
     private let unitsParameterName = "units"
     private let cityNameParameterName = "q"
@@ -25,8 +23,8 @@ struct OpenWeatherService : WeatherServiceProtocol {
     }
     
     func requestUrlWithMethod(method: String, queryItems: Array<NSURLQueryItem>) -> NSURL? {
-    
         let urlComponents = NSURLComponents(string: baseUrl)!
+        
         urlComponents.path?.appendPathComponent(version)
         urlComponents.path?.appendPathComponent(method)
         urlComponents.queryItems = queryItems
@@ -34,28 +32,24 @@ struct OpenWeatherService : WeatherServiceProtocol {
         return urlComponents.URL
     }
     
-    func weatherForCititWithName(name: String, country: String, completionHandler: (weather:Weather?) -> ()) {
-        
+    func weatherForCititWithName(name: String,
+                                 country: String,
+                                 completionHandler: (weather: Weather?) -> ()) {
         let apiKey = WeatherServiceConfiguration(serviceName: String(OpenWeatherService)).apiKey
-        
-        let cityNameQueryItem = NSURLQueryItem(name: cityNameParameterName, value: "\(name),\(country)")
+        let cityNameQueryItem = NSURLQueryItem(name: cityNameParameterName,
+                                               value: "\(name),\(country)")
         let unitsQueryItem = NSURLQueryItem(name: unitsParameterName, value: Units.Metric.rawValue)
         let apiKeyQueryItem = NSURLQueryItem(name: apiKeyParameterName, value: apiKey)
         let queryItems = [cityNameQueryItem, unitsQueryItem, apiKeyQueryItem]
-        
         let queryUrl = self.requestUrlWithMethod(weatherMethod, queryItems: queryItems)
         
         if let queryUrlString = queryUrl?.absoluteString {
-        
             WeatherAPI.request(.GET, url:queryUrlString) { (result, error) in
-                
                 if let json = result {
-                    
                     let weather = OpenWeatherParser.parseWeather(json)
                     
                     completionHandler(weather: weather)
                 } else {
-                    
                     completionHandler(weather: nil)
                 }
             }

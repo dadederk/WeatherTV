@@ -13,9 +13,7 @@ struct Weather {
     let city: String
     var temperature: Float
     var formatedTemperature: String {
-    
         get {
-            
             let roundedCurrentTemperature = Int(round(temperature))
 
             return "\(roundedCurrentTemperature)\u{00B0}"
@@ -23,7 +21,6 @@ struct Weather {
     }
     
     init(city: String, temperature: Float) {
-    
         self.city = city
         self.temperature = temperature
     }

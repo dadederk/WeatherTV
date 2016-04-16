@@ -9,7 +9,6 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
-    
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var currentTemperatureLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -23,25 +22,26 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         
         let weatherService = WeatherServiceFactory.weatherService()
-        
         let cityName = "Puebla de San Miguel"
         let country = "Spain"
         
         weatherService.weatherForCititWithName(cityName, country:country) { (weather) -> () in
-            
             self.activityIndicator.stopAnimating()
             
             if let weather = weather {
-                
-                self.cityNameLabel.text = weather.city
-                self.currentTemperatureLabel.text = weather.formatedTemperature
+                self.configureCurrentWeather(weather)
             } else {
-                
-                let alert = UIAlertController(title: "Error", message: "Error getting the forecast", preferredStyle: .Alert)
+                let alert = UIAlertController(title: "Error",
+                                              message: "Error getting the forecast",
+                                              preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
                 self.presentViewController(alert, animated: true, completion:nil)
             }
         }
     }
+    
+    func configureCurrentWeather(weather: Weather) {
+        self.cityNameLabel.text = weather.city
+        self.currentTemperatureLabel.text = weather.formatedTemperature
+    }
 }
-

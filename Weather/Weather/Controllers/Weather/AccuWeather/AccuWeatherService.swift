@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct AccuWeather : WeatherServiceProtocol {
-    
-    func weatherForCititWithName(name: String, country: String, completionHandler: (weather: Weather?) -> ()) {
-        
+struct AccuWeather: WeatherServiceProtocol {
+    func weatherForCititWithName(name: String,
+                                 country: String,
+                                 completionHandler: (weather: Weather?) -> ()) {
     }
 }
