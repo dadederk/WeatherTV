@@ -10,15 +10,19 @@ import Foundation
 
 struct WorldWeatherParser : WeatherParserProtocol {
     static func parseWeather(json: AnyObject) -> Weather? {
+        
         var weather: Weather?
-        
-        if let mainInfo = json.objectForKey("data") {
-            let cityName = (mainInfo.objectForKey("request")?.objectAtIndex(0).objectForKey("query") as? String)?.componentsSeparatedByString(",")[0]
-            let currentTemperature = mainInfo.objectForKey("current_condition")?.objectAtIndex(0).objectForKey("temp_C") as! String
+        if let data = json.objectForKey("data"),
+            let query = data.objectForKey("request")?.objectAtIndex(0).objectForKey("query") as? String,
+            let currentCondition = data.objectForKey("current_condition"),
+            let currentTemperature = currentCondition.objectAtIndex(0).objectForKey("temp_C") as? String{
+            
+            let cityName = query.componentsSeparatedByString(",")[0]
             let currentTemperatureFloat = NSNumberFormatter().numberFromString(currentTemperature)!.floatValue
-            weather = Weather(city: cityName!, temperature: currentTemperatureFloat)
+            
+            weather = Weather(city: cityName, temperature: currentTemperatureFloat)
         }
-        
+    
         return weather
     }
 }
