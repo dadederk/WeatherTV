@@ -12,10 +12,10 @@ struct OpenWeatherParser: WeatherParserProtocol {
     static func parseWeather(json: AnyObject) -> Weather? {
         var weather: Weather?
         
-        if let mainInfo = json.objectForKey("main") {
-            let cityName = json.objectForKey("name") as? String
-            let currentTemperature = mainInfo.objectForKey("temp") as? Float
-            weather = Weather(city: cityName!, temperature: currentTemperature!)
+        if let mainInfo = json.objectForKey("main"),
+        let cityName = json.objectForKey("name") as? String,
+        let currentTemperature = mainInfo.objectForKey("temp") as? Float {
+            weather = Weather(city: cityName, temperature: currentTemperature)
         }
         
         return weather

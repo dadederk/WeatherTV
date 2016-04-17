@@ -15,8 +15,7 @@ struct WorldWeatherParser : WeatherParserProtocol {
         if let data = json.objectForKey("data"),
             let query = data.objectForKey("request")?.objectAtIndex(0).objectForKey("query") as? String,
             let currentCondition = data.objectForKey("current_condition"),
-            let currentTemperature = currentCondition.objectAtIndex(0).objectForKey("temp_C") as? String{
-            
+            let currentTemperature = currentCondition.objectAtIndex(0).objectForKey("temp_C") as? String {
             let cityName = query.componentsSeparatedByString(",")[0]
             let currentTemperatureFloat = NSNumberFormatter().numberFromString(currentTemperature)!.floatValue
             
