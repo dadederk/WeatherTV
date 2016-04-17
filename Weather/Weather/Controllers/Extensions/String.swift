@@ -10,18 +10,19 @@ import Foundation
 
 extension String {
 
-    mutating func appendPathComponent(var pathComponent: String) {
+    mutating func appendPathComponent(pathComponent: String) {
+        var appendingPathComponent = pathComponent
         let stringEndIndex = self.endIndex.advancedBy(-1)
         let pathComponentStartIndex = pathComponent.startIndex
         let separatorCharacter: Character = "/"
         
         self.removeCharacterIfExistsAtIndex(stringEndIndex, character: separatorCharacter)
         
-        pathComponent.removeCharacterIfExistsAtIndex(pathComponentStartIndex,
+        appendingPathComponent.removeCharacterIfExistsAtIndex(pathComponentStartIndex,
                                                      character: separatorCharacter)
         
         self.append(separatorCharacter)
-        self = self + pathComponent
+        self = self + appendingPathComponent
     }
     
     private mutating func removeCharacterIfExistsAtIndex(stringIndex: Index, character: Character) {
